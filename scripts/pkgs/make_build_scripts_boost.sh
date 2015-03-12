@@ -61,7 +61,7 @@ cat > debian/rules << EOF
 override_dh_auto_configure:
 	./bootstrap.sh
 override_dh_auto_build:
-	./b2 link=static,shared -j --prefix=`pwd`/debian/boost-all/usr/
+	./b2 link=static,shared -j 4 --prefix=`pwd`/debian/boost-all/usr/
 override_dh_auto_test:
 override_dh_auto_install:
 	mkdir -p debian/boost-all/usr debian/boost-all-dev/usr debian/boost-build/usr/bin

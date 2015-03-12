@@ -21,7 +21,7 @@ OPTSTRING=ch:
 while getopts ${OPTSTRING} OPT
 do
     case ${OPT} in
-        c|-clean) BUILD_CLEAN=1;;
+        c|-clean) rm -rf "$BASE";;
         h|-help)
           "$DOCS/usage.sh"
           exit 0
