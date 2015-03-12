@@ -49,8 +49,8 @@ shift "$(( $OPTIND - 1 ))"
 source "$SCRIPTS/common.sh"
 
 # Check we are running on a supported system in the correct way.
-check_root
-check_sudo
+#check_root
+#check_sudo
 
 export package_name="boost"
 export BUILD_DEPS="cdbs libbz2-dev zlib1g-dev"
