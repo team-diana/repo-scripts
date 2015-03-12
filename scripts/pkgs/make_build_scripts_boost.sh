@@ -5,7 +5,6 @@ source "$SCRIPTS/common.sh"
 
 ncecho " [x] $package_name: Preparing fake package "
 
-pushd
 cd $BASE/$package_name/src/
 
 # Build DEB
@@ -72,8 +71,6 @@ EOF
 echo "8" > ebian/compat 2>&1 &
 mkdir -p debian/source 2>&1 &
 echo "3.0 (quilt)" > debian/source/format 2>&1 &
-
-popd
 
 unset DEBVERSION
 

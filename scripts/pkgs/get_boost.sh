@@ -9,11 +9,9 @@ export DEBVERSION=1.57.0~${LSB_CODE}1
 
 ncecho " [x] $package_name: Processing sources "
 
-pushd
 cd /tmp
 tar xvjf boost-all_1.57.0.orig.tar.bz2 2>&1 &
 pid=$!;progress $pid
-popd
 
 mv /tmp/boost_1_57_0/* $BASE/$package_name/src/
 rm -rf $BASE/$package_name/src/debian
