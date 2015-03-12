@@ -9,5 +9,5 @@ mkdir -p "$BASE/$package_name/src" >> "$LOG" 2>&1 &
 pid=$!;progress $pid
 
 # Set the permissions appropriately for 'gpg'
-chown root:root "$BASE/gpg" 2>/dev/null
-chmod 0700 "$BASE/gpg" 2>/dev/null
+sudo chown root:root "$BASE/gpg" 2>/dev/null
+sudo chmod 0700 "$BASE/gpg" 2>/dev/null

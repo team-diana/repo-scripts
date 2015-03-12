@@ -61,9 +61,9 @@ function progress() {
             retcode=$?
             echo "$pid's retcode: $retcode" >> "$log"
             if [[ $retcode = "0" ]] || [[ $retcode = "255" ]]; then
-                cecho success
+                cecho "\033[0;32m success \033[0m"
             else
-                cecho failed
+                cecho "\033[0;31m failed \033[0m"
                 echo -e " [i] Showing the last 5 lines from the logfile ($log)...";
                 tail -n5 "$log"
                 exit 1;
@@ -86,9 +86,9 @@ function progress_loop() {
             retcode=$?
             echo "$pid's retcode: $retcode" >> "$log"
             if [[ $retcode = "0" ]] || [[ $retcode = "255" ]]; then
-                cecho success
+                cecho "\033[0;32m success \033[0m"
             else
-                cecho failed
+                cecho "\033[0;31m failed \033[0m"
                 echo -e " [i] Showing the last 5 lines from the logfile ($log)...";
                 tail -n5 "$log"
                 exit 1;
@@ -110,7 +110,7 @@ function progress_can_fail() {
             wait $pid
             retcode=$?
             echo "$pid's retcode: $retcode" >> "$log"
-            cecho success
+            cecho "\033[0;32m success \033[0m"
             break 2;
         fi
     done

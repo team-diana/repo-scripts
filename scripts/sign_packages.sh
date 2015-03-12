@@ -52,6 +52,6 @@ if [ -e "$BASE/gpg/pubring.gpg" ] && [ -e "$BASE/gpg/secring.gpg" ] && [ -e "$BA
 
     # Add the public signing key
     ncecho " [x] Adding public key "
-    apt-key add "$BASE/deb/pubkey.asc" >> "$LOG" 2>&1 &
+    echo apt-key add "$BASE/deb/pubkey.asc" >> "$LOG" 2>&1 &
     pid=$!;progress $pid
 fi

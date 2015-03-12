@@ -2,13 +2,14 @@
 # a CC0 1.0 Universal, see LICENSE file for further details
 
 source "$SCRIPTS/common.sh"
+lsb
 
 ncecho " [x] $package_name: Preparing fake package "
 
-cd $BASE/$package_name/src/
+cd "$BASE/$package_name/src"
 
 # Build DEB
-mkdir -p debian 2>&1 &
+mkdir -p debian 2>&1
 
 cat > debian/copying << EOF
 The above copyright notice and this permission notice shall be included in
@@ -22,8 +23,10 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.
 EOF
 
+export DEBVERSION="1.57.0~${LSB_CODE}1"
+
 # Create the changelog (no messages needed)
-dch --create -v $DEBVERSION --package boost-all ""  2>&1 &
+dch --distribution "${LSB_CODE}" --force-distribution --create --newversion "${DEBVERSION}" --package boost-all "Automated build for ${LSB_ID} ${LSB_CODE} ${LSB_REL}."  2>&1
 
 # Create control file
 cat > debian/control << EOF
@@ -58,7 +61,7 @@ cat > debian/rules << EOF
 override_dh_auto_configure:
 	./bootstrap.sh
 override_dh_auto_build:
-	./b2 link=static,shared -j 1 --prefix=`pwd`/debian/boost-all/usr/
+	./b2 link=static,shared -j --prefix=`pwd`/debian/boost-all/usr/
 override_dh_auto_test:
 override_dh_auto_install:
 	mkdir -p debian/boost-all/usr debian/boost-all-dev/usr debian/boost-build/usr/bin
@@ -68,9 +71,9 @@ override_dh_auto_install:
 EOF
 
 # Create some misc files
-echo "8" > ebian/compat 2>&1 &
-mkdir -p debian/source 2>&1 &
-echo "3.0 (quilt)" > debian/source/format 2>&1 &
+echo "8" > debian/compat 2>&1
+mkdir -p debian/source 2>&1
+echo "3.0 (quilt)" > debian/source/format 2>&1
 
 unset DEBVERSION
 

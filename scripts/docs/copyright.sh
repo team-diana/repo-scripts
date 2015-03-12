@@ -19,8 +19,9 @@ echo
 
 # Adjust the output if we are building the docs.
 if [ "$1" != "build_docs" ]; then
-    code "tail -f \"`pwd`/build.log\""
+    echo "Build log can be found in \"`pwd`/build.log\""
 else
-    code "tail -f build.log"
+    echo "Build log can be found in build.log"
 fi
+
 echo
