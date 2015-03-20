@@ -5,7 +5,7 @@ cd "$BASE/$package_name/src"
 
 # Build the binary packages
 ncecho " [x] $package_name: Building the packages "
-dpkg-buildpackage -b >> "$LOG" 2>&1 &
+dpkg-buildpackage -b -us -uc >> "$LOG" 2>&1 &
 pid=$!;progress $pid
 
 if [ -e "$BASE/$package_name/src/$1_${DEBVERSION}_${LSB_ARCH}.changes" ]; then
