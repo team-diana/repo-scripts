@@ -28,7 +28,8 @@ log="$LOG"
 
 function error_msg() {
     local MSG="${1}"
-    echo "ERROR: ${MSG}"
+    echo "\033[0;31m ERROR: \033[0m ${MSG}"
+    echo "ERROR: ${MSG}" >> "$log"
     exit 1
 }
 
@@ -61,9 +62,9 @@ function progress() {
             retcode=$?
             echo "$pid's retcode: $retcode" >> "$log"
             if [[ $retcode = "0" ]] || [[ $retcode = "255" ]]; then
-                cecho "\033[0;32m success \033[0m"
+                cecho "[\033[0;32msuccess\033[0m]"
             else
-                cecho "\033[0;31m failed \033[0m"
+                cecho "[\033[0;31mfailed\033[0m]"
                 echo -e " [i] Showing the last 5 lines from the logfile ($log)...";
                 tail -n5 "$log"
                 exit 1;
@@ -86,9 +87,9 @@ function progress_loop() {
             retcode=$?
             echo "$pid's retcode: $retcode" >> "$log"
             if [[ $retcode = "0" ]] || [[ $retcode = "255" ]]; then
-                cecho "\033[0;32m success \033[0m"
+                cecho "[\033[0;32msuccess\033[0m]"
             else
-                cecho "\033[0;31m failed \033[0m"
+                cecho "[\033[0;31mfailed\033[0m]"
                 echo -e " [i] Showing the last 5 lines from the logfile ($log)...";
                 tail -n5 "$log"
                 exit 1;
@@ -110,7 +111,7 @@ function progress_can_fail() {
             wait $pid
             retcode=$?
             echo "$pid's retcode: $retcode" >> "$log"
-            cecho "\033[0;32m success \033[0m"
+            cecho "[\033[0;32msuccess\033[0m]"
             break 2;
         fi
     done
@@ -131,7 +132,7 @@ function check_sudo() {
 function lsb() {
     local CMD_LSB_RELEASE=`which lsb_release`
     if [ "${CMD_LSB_RELEASE}" == "" ]; then
-	    error_msg "'lsb_release' was not found. I can't identify your distribution."
+	    error_msg "'lsb_release' was not found. Distribution couldn't be identified, are you sure you are running a Debian-based system?"
     fi
     LSB_ID=`lsb_release -i | cut -f2 | sed 's/ //g'`
     LSB_REL=`lsb_release -r | cut -f2 | sed 's/ //g'`

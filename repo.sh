@@ -41,7 +41,7 @@ source "$SCRIPTS/common.sh"
 #check_sudo
 
 export package_name="boost"
-export BUILD_DEPS="cdbs libbz2-dev zlib1g-dev"
+export BUILD_DEPS="cdbs libbz2-dev zlib1g-dev python-dev"
 
 "$SCRIPTS/install_build_deps.sh"
 "$SCRIPTS/create_build_dirs.sh"

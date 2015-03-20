@@ -61,18 +61,18 @@ cat > debian/rules << EOF
 override_dh_auto_configure:
 	./bootstrap.sh
 override_dh_auto_build:
-	./b2 link=static,shared -j 4 --prefix=`pwd`/debian/boost-all/usr/
+	./b2 link=static,shared -j 4 --prefix="`pwd`/debian/boost-all/usr/"
 override_dh_auto_test:
 override_dh_auto_install:
 	mkdir -p debian/boost-all/usr debian/boost-all-dev/usr debian/boost-build/usr/bin
-	./b2 link=static,shared --prefix=`pwd`/debian/boost-all/usr/ install
+	./b2 link=static,shared --prefix="`pwd`/debian/boost-all/usr/" install
 	mv debian/boost-all/usr/include debian/boost-all-dev/usr
 	cp b2 debian/boost-build/usr/bin
 EOF
 
 # Create some misc files
 echo "8" > debian/compat 2>&1
-mkdir -p debian/source 2>&1 >> /dev/null
+mkdir -p debian/source 2>&1
 echo "3.0 (quilt)" > debian/source/format 2>&1
 
 unset DEBVERSION
