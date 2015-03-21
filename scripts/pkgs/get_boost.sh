@@ -18,4 +18,4 @@ if [ ! -d "$BASE/$package_name/src/boost/" ]; then
 fi
 
 # always clean preious debian package sources
-rm -rf "$BASE/$package_name"/src/debian 2>&1 >> "$LOG" &
+rm -rf "$BASE/$package_name/src/debian" >> "$LOG" 2>&1

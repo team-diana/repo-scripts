@@ -44,7 +44,7 @@ function progress() {
 				tail -n5 "$LOG"
 				exit 1;
 			fi
-			break 2;
+			break;
 		fi
 	done
 }
