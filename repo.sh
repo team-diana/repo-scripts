@@ -15,7 +15,7 @@ export BUILD_CLEAN=0
 export BASE="/tmp/build"
 export script_home="`pwd`"
 
-"$DOCS/copyright.sh"
+source "$DOCS/copyright.sh"
 
 # Parse the options
 OPTSTRING=ch:
@@ -44,17 +44,17 @@ source "$SCRIPTS/common.sh"
 export package_name="boost"
 export BUILD_DEPS="cdbs libbz2-dev zlib1g-dev python-dev"
 
-"$SCRIPTS/install_build_deps.sh"
-"$SCRIPTS/create_build_dirs.sh"
+source "$SCRIPTS/install_build_deps.sh"
+source "$SCRIPTS/create_build_dirs.sh"
 
-"$SCRIPTS/pkgs/get_$package_name.sh"
-"$SCRIPTS/pkgs/make_build_scripts_$package_name.sh"
+source "$SCRIPTS/pkgs/get_$package_name.sh"
+source "$SCRIPTS/pkgs/make_build_scripts_$package_name.sh"
 
-"$SCRIPTS/build_packages.sh"
+source "$SCRIPTS/build_packages.sh"
 
-"$SCRIPTS/create_repository.sh"
+source "$SCRIPTS/create_repository.sh"
 
-"$SCRIPTS/sign_packages.sh"
+source "$SCRIPTS/sign_packages.sh"
 
 # Update apt cache
 #echo "deb file://$BASE/deb /" #> /etc/apt/sources.list.d/oab.list

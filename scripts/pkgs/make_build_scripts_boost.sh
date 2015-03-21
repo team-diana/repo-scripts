@@ -5,10 +5,11 @@ source "$SCRIPTS/common.sh"
 lsb
 
 # Epilogue vars
-cd "$script_home"
 PKG_VERSION="1.57.0"
+pushd "$script_home" >> "$LOG"
 export DEBNAME="${package_name}-all"
 export DEBVERSION="${PKG_VERSION}~${LSB_CODE}-`git rev-parse --short HEAD`"
+popd >> "$LOG"
 
 ncecho " [x] $package_name: Preparing fake package "
 
