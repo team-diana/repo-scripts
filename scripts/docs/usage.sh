@@ -18,7 +18,7 @@ echo "================================"
 echo "Like so:"
 echo
 echo "  curl https://www.tamersaadeh.com/diana/deb/pubkey.asc | sudo apt-key add -"
-echo "  sudo sh -c 'echo \"deb http://www.tamersaadeh.com/diana/deb/ all main\" > /etc/apt/sources.list.d/team-diana.list'"
+echo "  sudo sh -c 'echo \"deb [arch=amd64] http://www.tamersaadeh.com/diana/deb/ all main\" > /etc/apt/sources.list.d/team-diana.list'"
 echo "  sudo apt-get update"
 echo
 echo "Then you can install packages provided by the repository by issuing:"
