@@ -1,6 +1,6 @@
 source "$SCRIPTS/common.sh"
 
-mkdir -p "$BASE/$package_name" >> "$LOG" 2>&1
+mkdir -p "$BASE/$package_name/src" >> "$LOG" 2>&1 &
 
 ncecho " [x] $package_name: Getting sources "
 if [ ! -f "$BASE/$package_name/boost-all_1.57.0.orig.tar.bz2" ]; then
