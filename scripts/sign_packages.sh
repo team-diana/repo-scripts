@@ -45,4 +45,7 @@ if [ -e "$BASE/gpg/pubring.gpg" ] && [ -e "$BASE/gpg/secring.gpg" ] && [ -e "$BA
 	ncecho " [x] Exporting public key "
 	gpg --homedir "$BASE/gpg" --export -a "`hostname --fqdn`" > "$BASE/deb/pubkey.asc" &
 	pid=$!;progress $pid
+
+	# Copy pubkey to $BASE because that way we can delete $BASE/deb without issues
+	cp -v "$BASE/deb/pubkey.asc" "$BASE/pubkey.asc" >> "$LOG" 2>&1
 fi
