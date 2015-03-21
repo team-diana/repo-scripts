@@ -9,16 +9,16 @@ echo
 echo "Optional parameters"
 echo "==================="
 echo
-echo "-c | --clean:	Builds new packages from scratch and removes everything from the repository."
+echo "-c:	Builds new packages from scratch and removes everything from the repository."
 echo
-echo "-h | --help:	This help message."
+echo "-h:	This help message."
 echo
 echo "How to use generated repository?"
 echo "================================"
 echo "Like so:"
 echo
 echo "  curl https://www.tamersaadeh.com/diana/deb/pubkey.asc | sudo apt-key add -"
-echo "  sudo echo \"deb http://www.tamersaadeh.com/diana/deb/ ${LSB_CODE} main\" > /etc/apt/sources.d/team-diana.list"
+echo "  sudo sh -c 'echo \"deb http://www.tamersaadeh.com/diana/deb/ all main\" > /etc/apt/sources.d/team-diana.list'"
 echo "  sudo apt-get update"
 echo
 echo "Then you can install packages provided by the repository by issuing:"

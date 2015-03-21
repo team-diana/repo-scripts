@@ -32,12 +32,12 @@ fi
 source "$DOCS/copyright.sh"
 
 # Parse the options
-OPTSTRING=ch:
+OPTSTRING=ch
 while getopts ${OPTSTRING} OPT; do
 	case ${OPT} in
-		c|-clean) rm -rfv "$BASE" >> "$LOG" 2>&1 ;;
-		h|-help) "$DOCS/usage.sh"; exit 0 ;;
-		*) "$DOCS/usage.sh"; exit 1 ;;
+		c) rm -rfv "$BASE" >> "$LOG" 2>&1 ;;
+		h) source "$DOCS/usage.sh"; exit 0 ;;
+		*) source "$DOCS/usage.sh"; exit 1 ;;
 	esac
 done
 shift "$(( $OPTIND - 1 ))"
