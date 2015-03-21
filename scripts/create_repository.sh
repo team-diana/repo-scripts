@@ -19,14 +19,14 @@ rm -rfv /tmp/override >> "$LOG" 2>&1
 
 # Create the apt.conf file
 ncecho " [x] Generation of $BASE/apt.conf configuration file "
-echo "APT::FTPArchive::Release {"		> "$BASE/apt.conf"
+echo "APT::FTPArchive::Release {"		>  "$BASE/apt.conf"
 echo "Origin \"tamersaadeh.com\";"		>> "$BASE/apt.conf"
 echo "Label \"C, C++, libs\";"			>> "$BASE/apt.conf"
-echo "Suite \"${LSB_CODE}\";"                   >> "$BASE/apt.conf"
-echo "Codename \"${LSB_CODE}\";"                >> "$BASE/apt.conf"
-echo "Architectures \"${LSB_ARCH}\";"           >> "$BASE/apt.conf"
+echo "Suite \"all\";"				>> "$BASE/apt.conf"
+echo "Codename \"all\";"                >> "$BASE/apt.conf"
+echo "Architectures \"${LSB_ARCH}\";"		>> "$BASE/apt.conf"
 echo "Components \"main\";"			>> "$BASE/apt.conf"
-echo "Description \"Team DIANA Repository\";"   >> "$BASE/apt.conf"
+echo "Description \"Team DIANA Repository\";"	>> "$BASE/apt.conf"
 echo "}"					>> "$BASE/apt.conf" &
 pid=$!;progress $pid
 
