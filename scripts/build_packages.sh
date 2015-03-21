@@ -9,7 +9,10 @@ dpkg-buildpackage -b -us -uc -j4 >> "$LOG" 2>&1 &
 pid=$!;progress $pid
 
 for dist in "${build_for}"; do
+	pushd "$script_home" >> "$LOG"
 	DEBVERSION="${PKG_VERSION}~${dist}-`git rev-parse --short HEAD`"
+	popd >> "$LOG"
+
 	CHANGES="$BASE/$package_name/${DEBNAME}_${DEBVERSION}_${LSB_ARCH}.changes"
 
 	if [ -e "$CHANGES" ]; then

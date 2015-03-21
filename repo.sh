@@ -13,6 +13,7 @@ export DOCS="$SCRIPTS/docs"
 export LOG="`pwd`/build.log"
 export BUILD_CLEAN=0
 export BASE="/tmp/build"
+export script_home="`pwd`"
 
 "$DOCS/copyright.sh"
 
@@ -65,9 +66,12 @@ export build_for="precise trusty utopic"
 echo "unsetting variables..." >> "$LOG"
 unset SCRIPTS
 unset DOCS
-unset BASE
+
 unset LOG
 unset BUILD_CLEAN
+unset BASE
+unset script_home
+
 unset package_name
 unset BUILD_DEPS
 unset build_for

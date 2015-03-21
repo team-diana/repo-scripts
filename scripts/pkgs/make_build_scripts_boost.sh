@@ -26,7 +26,9 @@ IN THE SOFTWARE.
 EOF
 
 for dist in "${build_for}"; do
+	pushd "$script_home" >> "$LOG"
 	DEBVERSION="${PKG_VERSION}~${dist}-`git rev-parse --short HEAD`"
+	popd >> "$LOG"
 
 	# Create the changelog
 	dch --distribution "${dist}" --force-distribution --create --newversion "${DEBVERSION}" --package "${DEBNAME}" "Automated build for ${dist}. Built on `date +%Y-%m-%d` at `date +%H:%M:%S`." >> "$LOG" 2>&1 &
