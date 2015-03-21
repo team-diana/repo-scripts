@@ -42,6 +42,6 @@ cat "$BASE/deb/dists/all/main/binary-amd64/Packages" | gzip -c9 > "$BASE/deb/dis
 rm "$BASE/deb/override" 2>/dev/null
 
 # Create the 'apt' Release file
-ncecho " [x] Creating $BASE/deb/dists/all/main/binary-amd64/Release file "
-apt-ftparchive -c="$BASE/apt.conf" release "$BASE/deb/"	> "$BASE/deb/dists/all/main/binary-amd64/Release" &
+ncecho " [x] Creating $BASE/deb/dists/all/Release file "
+apt-ftparchive -c="$BASE/apt.conf" release "$BASE/deb/"	> "$BASE/deb/dists/all/Release" &
 pid=$!;progress $pid

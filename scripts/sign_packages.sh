@@ -38,7 +38,7 @@ if [ -e "$BASE/gpg/pubring.gpg" ] && [ -e "$BASE/gpg/secring.gpg" ] && [ -e "$BA
 	# Sign the Release
 	ncecho " [x] Signing the 'Release' file "
 	rm -v "$BASE/deb/dists/all/main/binary-amd64/Release.gpg" >> "$LOG" 2>&1
-	gpg --homedir "$BASE/gpg" --armor --detach-sign --output "$BASE/deb/dists/all/main/binary-amd64/Release.gpg" "$BASE/deb/dists/all/main/binary-amd64/Release" >> "$LOG" 2>&1 &
+	gpg --homedir "$BASE/gpg" --armor --detach-sign --output "$BASE/deb/dists/all/Release.gpg" "$BASE/deb/dists/all/Release" >> "$LOG" 2>&1 &
 	pid=$!;progress $pid
 
 	# Export public signing key
