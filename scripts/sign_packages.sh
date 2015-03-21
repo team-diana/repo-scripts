@@ -37,17 +37,12 @@ fi
 if [ -e "$BASE/gpg/pubring.gpg" ] && [ -e "$BASE/gpg/secring.gpg" ] && [ -e "$BASE/gpg/trustdb.gpg" ]; then
 	# Sign the Release
 	ncecho " [x] Signing the 'Release' file "
-	rm -v "$BASE/deb/Release.gpg" >> "$LOG" 2>&1
-	gpg --homedir "$BASE/gpg" --armor --detach-sign --output "$BASE/deb/Release.gpg" "$BASE/deb/Release" >> "$LOG" 2>&1 &
+	rm -v "$BASE/deb/dists/all/main/binary-amd64/Release.gpg" >> "$LOG" 2>&1
+	gpg --homedir "$BASE/gpg" --armor --detach-sign --output "$BASE/deb/dists/all/main/binary-amd64/Release.gpg" "$BASE/deb/dists/all/main/binary-amd64/Release" >> "$LOG" 2>&1 &
 	pid=$!;progress $pid
 
 	# Export public signing key
 	ncecho " [x] Exporting public key "
 	gpg --homedir "$BASE/gpg" --export -a "`hostname --fqdn`" > "$BASE/deb/pubkey.asc" &
-	pid=$!;progress $pid
-
-	# Add the public signing key
-	ncecho " [x] Adding public key "
-	echo apt-key add "$BASE/deb/pubkey.asc" >> "$LOG" 2>&1 &
 	pid=$!;progress $pid
 fi
