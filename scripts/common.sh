@@ -40,7 +40,7 @@ function progress() {
 				cecho "[\033[0;32msuccess\033[0m]"
 			else
 				cecho "[\033[0;31mfailed\033[0m]"
-				echo -e " [i] Showing the last 5 lines from the LOGfile ($LOG)...";
+				echo -e " [i] Showing the last 5 lines from the logfile ($LOG)...";
 				tail -n5 "$LOG"
 				exit 1;
 			fi
