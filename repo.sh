@@ -42,6 +42,7 @@ source "$SCRIPTS/common.sh"
 
 export package_name="boost"
 export BUILD_DEPS="cdbs libbz2-dev zlib1g-dev python-dev"
+export build_for="precise trusty utopic"
 
 "$SCRIPTS/install_build_deps.sh"
 "$SCRIPTS/create_build_dirs.sh"
@@ -67,5 +68,8 @@ unset DOCS
 unset BASE
 unset LOG
 unset BUILD_CLEAN
+unset package_name
+unset BUILD_DEPS
+unset build_for
 
 echo "All done!"
