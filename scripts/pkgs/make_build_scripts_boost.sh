@@ -26,8 +26,8 @@ EOF
 export DEBNAME="${package_name}-all"
 export DEBVERSION="1.57.0~${LSB_CODE}1"
 
-# Create the changelog (no messages needed)
-dch --distribution "${LSB_CODE}" --force-distribution --create --newversion "${DEBVERSION}" --package "${DEBNAME}" "Automated build for ${LSB_ID} ${LSB_CODE} ${LSB_REL}. Built on `date +%Y-%m-%d` at `date %H:%M:%S`." >> "$LOG" 2>&1 &
+# Create the changelog
+dch --distribution "${LSB_CODE}" --force-distribution --create --newversion "${DEBVERSION}" --package "${DEBNAME}" "Automated build for ${LSB_ID} ${LSB_CODE} ${LSB_REL}. Built on `date +%Y-%m-%d` at `date +%H:%M:%S`." >> "$LOG" 2>&1 &
 
 pid=$!;progress $pid
 
