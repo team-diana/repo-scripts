@@ -5,17 +5,19 @@ cd "$BASE/$package_name/src"
 
 # Build the binary packages
 ncecho " [x] $package_name: Building the packages "
-dpkg-buildpackage -b -us -uc >> "$LOG" 2>&1 &
+dpkg-buildpackage -b -us -uc -j4 >> "$LOG" 2>&1 &
 pid=$!;progress $pid
 
-if [ -e "$BASE/$package_name/src/${DEBNAME}_${DEBVERSION}_${LSB_ARCH}.changes" ]; then
+CHANGES="$BASE/$package_name/${DEBNAME}_${DEBVERSION}_${LSB_ARCH}.changes"
+
+if [ -e "$CHANGES" ]; then
     # Populate the 'apt' repository with .debs
     ncecho " [x] $package_name: Moving the packages "
-    mv -v "$BASE/$package_name/src/${DEBNAME}_${DEBVERSION}_${LSB_ARCH}.changes" "$BASE/deb/" >> "$LOG" 2>&1
-    mv -v "$BASE/$package_name/src/"*".deb" "$BASE/deb/" >> "$LOG" 2>&1 &
+    mv -v "$CHANGES" "$BASE/deb/" >> "$LOG" 2>&1
+    mv -v "$BASE/$package_name/"*".deb" "$BASE/deb/" >> "$LOG" 2>&1 &
     pid=$!;progress $pid
 else    
-    error_msg "ERROR! Packages failed to build."
+    error_msg "Packages failed to build."
 fi
 
 # These *MUST BE* exported in a package's make_build_scripts_${package_name}.sh

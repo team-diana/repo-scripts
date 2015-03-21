@@ -9,7 +9,7 @@ ncecho " [x] $package_name: Preparing fake package "
 cd "$BASE/$package_name/src"
 
 # Build DEB
-mkdir -p debian 2>&1 >> /dev/null
+mkdir -p debian >> /dev/null 2>&1
 
 cat > debian/copying << EOF
 The above copyright notice and this permission notice shall be included in
@@ -27,7 +27,9 @@ export DEBNAME="${package_name}-all"
 export DEBVERSION="1.57.0~${LSB_CODE}1"
 
 # Create the changelog (no messages needed)
-dch --distribution "${LSB_CODE}" --force-distribution --create --newversion "${DEBVERSION}" --package boost-all "Automated build for ${LSB_ID} ${LSB_CODE} ${LSB_REL}." >> "$LOG"  2>&1
+dch --distribution "${LSB_CODE}" --force-distribution --create --newversion "${DEBVERSION}" --package "${DEBNAME}" "Automated build for ${LSB_ID} ${LSB_CODE} ${LSB_REL}. Built on `date +%Y-%m-%d` at `date %H:%M:%S`." >> "$LOG" 2>&1 &
+
+pid=$!;progress $pid
 
 # Create control file
 cat > debian/control << EOF
@@ -62,7 +64,7 @@ cat > debian/rules << EOF
 override_dh_auto_configure:
 	./bootstrap.sh
 override_dh_auto_build:
-	./b2 link=static,shared -j 4 --prefix="`pwd`/debian/boost-all/usr/"
+	./b2 link=static,shared --prefix="`pwd`/debian/boost-all/usr/"
 override_dh_auto_test:
 override_dh_auto_install:
 	mkdir -p debian/boost-all/usr debian/boost-all-dev/usr debian/boost-build/usr/bin
@@ -72,8 +74,6 @@ override_dh_auto_install:
 EOF
 
 # Create some misc files
-echo "8" > debian/compat 2>&1
-mkdir -p debian/source 2>&1
-echo "3.0 (quilt)" > debian/source/format 2>&1
-
-pid=$!;progress $pid
+echo "8" > debian/compat
+mkdir -p debian/source >> /dev/null 2>&1
+echo "3.0 (quilt)" > debian/source/format

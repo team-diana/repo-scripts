@@ -28,7 +28,7 @@ log="$LOG"
 
 function error_msg() {
     local MSG="${1}"
-    echo "\033[0;31m ERROR: \033[0m ${MSG}"
+    echo -e "\033[0;31m ERROR: \033[0m ${MSG}"
     echo "ERROR: ${MSG}" >> "$log"
     exit 1
 }

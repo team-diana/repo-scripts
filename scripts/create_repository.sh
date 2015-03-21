@@ -11,7 +11,7 @@ do
     DEB_SECTION=`dpkg --info ${FILE} | grep Section | cut -d'/' -f2`
     echo "${DEB_PACKAGE} high ${DEB_SECTION}" >> /tmp/override
 done &
-pid=$!; progress $pid
+pid=$!;progress $pid
 
 # Remove the duplicates from the overide file
 uniq /tmp/override > "$BASE/deb/override"
@@ -28,14 +28,14 @@ echo "Architectures \"${LSB_ARCH}\";"           >> "$BASE/apt.conf"
 echo "Components \"main\";"			>> "$BASE/apt.conf"
 echo "Description \"Team DIANA Repository\";"   >> "$BASE/apt.conf"
 echo "}"					>> "$BASE/apt.conf"
-pid=$!; progress $pid
+pid=$!;progress $pid
 
 # Create the 'apt' Packages.gz file
 ncecho " [x] Creating $BASE/deb/Packages.gz file "
 
 pushd "$BASE/deb" >> "$LOG"
 apt-ftparchive -c="$BASE/apt.conf" packages . "$BASE/deb/override" 2>/dev/null > "$BASE/deb/Packages" &
-pid=$!; progress $pid
+pid=$!;progress $pid
 popd >> "$LOG"
 
 cat "$BASE/deb/Packages" | gzip -c9 > "$BASE/deb/Packages.gz"
