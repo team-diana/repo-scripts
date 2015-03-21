@@ -1,5 +1,5 @@
-# This code is based on code by Uli Köhler <ukoehler@btronik.de> release under
-# a CC0 1.0 Universal, see LICENSE file for further details
+# This code is based on code by Uli Köhler <ukoehler@btronik.de> released under
+# a CC0 1.0 Universal, see LICENSE file for further details.
 
 source "$SCRIPTS/common.sh"
 lsb
@@ -79,5 +79,5 @@ EOF
 
 # Create some misc files
 echo "8" > debian/compat
-mkdir -p debian/source >> /dev/null 2>&1
+mkdir -p debian/source >> "$LOG" 2>&1
 echo "3.0 (quilt)" > debian/source/format

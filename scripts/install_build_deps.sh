@@ -1,7 +1,6 @@
 source "$SCRIPTS/common.sh"
-lsb
 
-# Determine the build and runtime requirements.
+# These are the build requirements, which are always needed
 COMMON_BUILD_DEPS="build-essential debhelper rng-tools imvirt"
 
 ncecho " [x] Installing ${package_name} build requirements "

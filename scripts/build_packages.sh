@@ -18,7 +18,6 @@ if [ -e "$CHANGES" ]; then
     pid=$!;progress $pid
 else
     error_msg "Packages failed to build."
-    exit 1
 fi
 
 # These *MUST BE* exported in a package's make_build_scripts_${package_name}.sh

@@ -7,9 +7,9 @@ echo "# Override" > /tmp/override
 echo "# Package priority section" >> /tmp/override
 for FILE in "$BASE/deb/"*".deb"
 do
-    DEB_PACKAGE=`dpkg --info ${FILE} | grep Package | cut -d':' -f2`
-    DEB_SECTION=`dpkg --info ${FILE} | grep Section | cut -d'/' -f2`
-    echo "${DEB_PACKAGE} high ${DEB_SECTION}" >> /tmp/override
+	DEB_PACKAGE=`dpkg --info ${FILE} | grep Package | cut -d':' -f2`
+	DEB_SECTION=`dpkg --info ${FILE} | grep Section | cut -d'/' -f2`
+	echo "${DEB_PACKAGE} high ${DEB_SECTION}" >> /tmp/override
 done >> "$LOG" 2>&1 &
 pid=$!;progress $pid
 
@@ -27,7 +27,7 @@ echo "Codename \"${LSB_CODE}\";"                >> "$BASE/apt.conf"
 echo "Architectures \"${LSB_ARCH}\";"           >> "$BASE/apt.conf"
 echo "Components \"main\";"			>> "$BASE/apt.conf"
 echo "Description \"Team DIANA Repository\";"   >> "$BASE/apt.conf"
-echo "}"					>> "$BASE/apt.conf"
+echo "}"					>> "$BASE/apt.conf" &
 pid=$!;progress $pid
 
 # Create the 'apt' Packages.gz file
