@@ -18,7 +18,7 @@ Like so:
 
 ```
 curl https://www.tamersaadeh.com/diana/deb/pubkey.asc | sudo apt-key add -
-sudo sh -c 'echo "deb http://www.tamersaadeh.com/diana/deb/ all main" > /etc/apt/sources.d/team-diana.list'
+sudo sh -c 'echo "deb http://www.tamersaadeh.com/diana/deb/ all main" > /etc/apt/sources.list.d/team-diana.list'
 sudo apt-get update
 ```
 
