@@ -31,17 +31,17 @@ echo "}"					>> "$BASE/apt.conf" &
 pid=$!;progress $pid
 
 # Create the 'apt' Packages.gz file
-ncecho " [x] Creating $BASE/deb/dists/all/Packages.gz file "
+ncecho " [x] Creating $BASE/deb/dists/all/main/binary-amd64/Packages.gz file "
 
 pushd "$BASE/deb" >> "$LOG"
-apt-ftparchive -c="$BASE/apt.conf" packages . "$BASE/deb/override" 2>/dev/null > "$BASE/deb/dists/all/Packages" &
+apt-ftparchive -c="$BASE/apt.conf" packages . "$BASE/deb/override" 2>/dev/null > "$BASE/deb/dists/all/main/binary-amd64/Packages" &
 pid=$!;progress $pid
 popd >> "$LOG"
 
-cat "$BASE/deb/Packages" | gzip -c9 > "$BASE/deb/Packages.gz"
+cat "$BASE/deb/dists/all/main/binary-amd64/Packages" | gzip -c9 > "$BASE/deb/dists/all/main/binary-amd64/Packages.gz"
 rm "$BASE/deb/override" 2>/dev/null
 
 # Create the 'apt' Release file
-ncecho " [x] Creating $BASE/deb/dists/all/Release file "
-apt-ftparchive -c="$BASE/apt.conf" release "$BASE/deb/"	> "$BASE/deb/dists/all/Release" &
+ncecho " [x] Creating $BASE/deb/dists/all/main/binary-amd64/Release file "
+apt-ftparchive -c="$BASE/apt.conf" release "$BASE/deb/"	> "$BASE/deb/dists/all/main/binary-amd64/Release" &
 pid=$!;progress $pid
