@@ -1,4 +1,4 @@
-echo -n "\`${script_name}\` v${script_version} - Create a repository for all of Team DIANA "
+echo -n "\`${script_name}\` v${script_version} - Creates a repository for all of Team DIANA "
 echo "packages."
 echo
 echo "Copyright (c) 2015 Team DIANA, <info@teamdiana.org>. MIT Licensed."
