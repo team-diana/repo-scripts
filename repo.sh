@@ -18,10 +18,15 @@ export LOG="`pwd`/build.log"
 export BUILD_CLEAN=0
 
 # Allow user to set a different build location
-RESET_BASE=1
+RESET=1
 if [ ! -e "$BASE" ]; then
-	RESET_BASE=0
+	RESET=0
 	export BASE="/tmp/build"
+fi
+
+if [ ! -e "$REPO" ]; then
+	RESET=0
+	export REPO="/var/www"
 fi
 
 source "$DOCS/copyright.sh"
@@ -48,6 +53,8 @@ export BUILD_DEPS="cdbs libbz2-dev zlib1g-dev python-dev"
 source "$SCRIPTS/create_build_dirs.sh"
 source "$SCRIPTS/install_build_deps.sh"
 
+packages="boost"
+
 for p in $packages; do
 	export package_name=$p
 
@@ -59,6 +66,12 @@ done
 source "$SCRIPTS/create_repository.sh"
 
 source "$SCRIPTS/sign_packages.sh"
+
+ncecho " [x] Making repository public "
+if [ ! -d "$REPO/deb" ]; then
+	ln -s "$BASE/deb" "$REPO/deb" >> "$LOG" 2>&1
+fi &
+pid=$!;progress $pid
 
 # unset global variables
 echo "unsetting variables..." >> "$LOG"
@@ -72,8 +85,9 @@ unset DOCS
 unset LOG
 unset BUILD_CLEAN
 
-if [ $RESET_BASE == 1]; then
+if [ $RESET == 1 ]; then
 	unset BASE
+	unset REPO
 fi
 
 unset package_name
