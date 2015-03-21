@@ -6,9 +6,18 @@ lsb
 
 # Epilogue vars
 PKG_VERSION="1.57.0"
-pushd "$script_home" >> "$LOG"
+pushd "$script_home/scripts/pkgs" >> "$LOG"
+
+if [ ! -f "${package_name}.vers" ]; then
+	COUNTER="1"
+else
+	COUNTER=$(("`cat ${package_name}.vers`"+1))
+fi
+echo "$COUNTER" > "${package_name}.vers"
+
 export DEBNAME="${package_name}-all"
-export DEBVERSION="${PKG_VERSION}~`git rev-parse --short HEAD`"
+export DEBVERSION="${PKG_VERSION}-${COUNTER}~`git rev-parse --short HEAD`"
+
 popd >> "$LOG"
 
 ncecho " [x] $package_name: Preparing fake package "
@@ -48,13 +57,11 @@ Package: boost-all
 Architecture: amd64
 Depends: \${shlibs:Depends}, \${misc:Depends}, boost-all (= $DEBVERSION)
 Description: Boost library, version $DEBVERSION (shared libraries)
-Replaces: boost-all (<< $DEBVERSION)
 
 Package: boost-all-dev
 Architecture: any
 Depends: boost-all (= $DEBVERSION)
 Description: Boost library, version $DEBVERSION (development files)
-Replaces: boost-all-dev (<< $DEBVERSION)
 
 Package: boost-build
 Architecture: any
@@ -70,13 +77,13 @@ cat > debian/rules << EOF
 override_dh_auto_configure:
 	./bootstrap.sh
 override_dh_auto_build:
-	./b2 link=static,shared -j 4 --prefix="`pwd`/debian/boost-all/usr/"
+	./b2 link=static,shared -j 4 --prefix="`pwd`/debian/boost-all/opt/boost/"
 override_dh_auto_test:
 override_dh_auto_install:
-	mkdir -p debian/boost-all/usr debian/boost-all-dev/usr debian/boost-build/usr/bin
-	./b2 link=static,shared --prefix="`pwd`/debian/boost-all/usr/" install
-	mv debian/boost-all/usr/include debian/boost-all-dev/usr
-	cp b2 debian/boost-build/usr/bin
+	mkdir -p debian/boost-all/opt/boost debian/boost-all-dev/opt/boost debian/boost-build/opt/boost/bin
+	./b2 link=static,shared --prefix="`pwd`/debian/boost-all/opt/boost/include/" install
+	mv debian/boost-all/usr/include debian/boost-all-dev/opt/boost/
+	cp b2 debian/boost-build/opt/boost/bin
 EOF
 
 # Create some misc files
