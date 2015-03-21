@@ -9,9 +9,9 @@ PKG_VERSION="1.57.0"
 pushd "$script_home/scripts/pkgs" >> "$LOG"
 
 if [ ! -f "${package_name}.vers" ]; then
-	COUNTER="1"
+	COUNTER=1
 else
-	COUNTER=$(("`cat ${package_name}.vers`"+1))
+	COUNTER=$((`cat ${package_name}.vers`+1))
 fi
 echo "$COUNTER" > "${package_name}.vers"
 
