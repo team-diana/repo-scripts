@@ -23,6 +23,7 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.
 EOF
 
+export DEBNAME="${package_name}-all"
 export DEBVERSION="1.57.0~${LSB_CODE}1"
 
 # Create the changelog (no messages needed)
@@ -74,7 +75,5 @@ EOF
 echo "8" > debian/compat 2>&1
 mkdir -p debian/source 2>&1
 echo "3.0 (quilt)" > debian/source/format 2>&1
-
-unset DEBVERSION
 
 pid=$!;progress $pid
