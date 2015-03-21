@@ -30,23 +30,24 @@ echo "Description \"Team DIANA Repository\";"	>> "$BASE/apt.conf"
 echo "}"					>> "$BASE/apt.conf" &
 pid=$!;progress $pid
 
+pushd "$BASE/deb" >> "$LOG"
+
 # Create the 'apt' Packages.gz file
 ncecho " [x] Creating $BASE/deb/dists/all/main/binary-amd64/Packages.gz file "
-
-pushd "$BASE/deb" >> "$LOG"
 apt-ftparchive -c="$BASE/apt.conf" packages . "$BASE/deb/override" 2>/dev/null > "$BASE/deb/dists/all/main/binary-amd64/Packages" &
 pid=$!;progress $pid
-popd >> "$LOG"
 
 cat "$BASE/deb/dists/all/main/binary-amd64/Packages" | gzip -c9 > "$BASE/deb/dists/all/main/binary-amd64/Packages.gz"
 rm -v "$BASE/deb/override" >> "$LOG" 2>&1
 
 # Create the 'apt' Release file
 ncecho " [x] Creating $BASE/deb/dists/all/Release file "
-apt-ftparchive -c="$BASE/apt.conf" release "$BASE/deb/"	> "$BASE/deb/dists/all/Release" &
+apt-ftparchive -c="$BASE/apt.conf" release "$BASE/deb/dists/all" > "$BASE/deb/dists/all/Release" &
 pid=$!;progress $pid
 
 # Create the 'apt' Contents file
 ncecho " [x] Creating $BASE/deb/dists/all/main/binary-amd64/Contents file "
-apt-ftparchive -c="$BASE/apt.conf" contents "$BASE/deb/" > "$BASE/deb/dists/all/main/binary-amd64/Contents" &
+apt-ftparchive -c="$BASE/apt.conf" contents "$BASE/deb/dists/all" > "$BASE/deb/dists/all/main/Contents" &
 pid=$!;progress $pid
+
+popd >> "$LOG"
