@@ -4,8 +4,11 @@
 source "$SCRIPTS/common.sh"
 lsb
 
+# Epilogue vars
+cd "$script_home"
 PKG_VERSION="1.57.0"
 export DEBNAME="${package_name}-all"
+export DEBVERSION="${PKG_VERSION}~${LSB_CODE}-`git rev-parse --short HEAD`"
 
 ncecho " [x] $package_name: Preparing fake package "
 
@@ -26,10 +29,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.
 EOF
-
-pushd "$script_home" >> "$LOG"
-export DEBVERSION="${PKG_VERSION}~${LSB_CODE}-`git rev-parse --short HEAD`"
-popd >> "$LOG"
 
 # Create the changelog
 dch --distribution "${LSB_CODE}" --force-distribution --create --newversion "${DEBVERSION}" --package "${DEBNAME}" "Automated build for  ${LSB_ID} ${LSB_CODE} ${LSB_REL}. Built on `date +%Y-%m-%d` at `date +%H:%M:%S`." >> "$LOG" 2>&1 &
