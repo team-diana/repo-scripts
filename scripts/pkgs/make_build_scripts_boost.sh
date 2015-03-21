@@ -41,7 +41,7 @@ Maintainer: Team DIANA <info@teamdiana.org>
 Section: misc
 Priority: optional
 Standards-Version: 3.9.2
-Build-Depends: debhelper (>= 8), cdbs, libbz2-dev, zlib1g-dev
+Build-Depends: debhelper (>= 8), cdbs, libbz2-dev, zlib1g-dev, python-dev
 
 Package: boost-all
 Architecture: amd64
