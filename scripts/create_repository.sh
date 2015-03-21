@@ -10,7 +10,7 @@ do
     DEB_PACKAGE=`dpkg --info ${FILE} | grep Package | cut -d':' -f2`
     DEB_SECTION=`dpkg --info ${FILE} | grep Section | cut -d'/' -f2`
     echo "${DEB_PACKAGE} high ${DEB_SECTION}" >> /tmp/override
-done &
+done >> "$LOG" 2>&1 &
 pid=$!;progress $pid
 
 # Remove the duplicates from the overide file

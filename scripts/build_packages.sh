@@ -8,7 +8,7 @@ ncecho " [x] $package_name: Building the packages "
 dpkg-buildpackage -b -us -uc -j4 >> "$LOG" 2>&1 &
 pid=$!;progress $pid
 
-for dist in "${build_for}"; do
+for dist in ${build_for}; do
 	pushd "$script_home" >> "$LOG"
 	DEBVERSION="${PKG_VERSION}~${dist}-`git rev-parse --short HEAD`"
 	popd >> "$LOG"

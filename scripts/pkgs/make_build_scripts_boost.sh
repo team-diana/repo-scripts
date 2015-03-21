@@ -27,7 +27,7 @@ EOF
 
 touch debian/control
 
-for dist in "${build_for}"; do
+for dist in ${build_for}; do
 	pushd "$script_home" >> "$LOG"
 	DEBVERSION="${PKG_VERSION}~${dist}-`git rev-parse --short HEAD`"
 	popd >> "$LOG"
