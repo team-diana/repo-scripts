@@ -82,7 +82,7 @@ override_dh_auto_test:
 override_dh_auto_install:
 	mkdir -p debian/boost-all/opt/boost debian/boost-all-dev/opt/boost debian/boost-build/opt/boost/bin
 	./b2 link=static,shared --prefix="`pwd`/debian/boost-all/opt/boost/include/" install
-	mv debian/boost-all/usr/include debian/boost-all-dev/opt/boost/
+	mv debian/boost-all/opt/boost/include debian/boost-all-dev/opt/boost/
 	cp b2 debian/boost-build/opt/boost/bin
 EOF
 
