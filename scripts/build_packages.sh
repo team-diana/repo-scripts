@@ -23,6 +23,7 @@ for dist in "${build_for}"; do
 	    pid=$!;progress $pid
 	else
 	    error_msg "Packages failed to build."
+	    exit 1
 	fi
 done
 
