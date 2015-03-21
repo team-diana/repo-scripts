@@ -2,6 +2,7 @@
 # a CC0 1.0 Universal, see LICENSE file for further details
 
 source "$SCRIPTS/common.sh"
+lsb
 
 export PKG_VERSION="1.57.0"
 export DEBNAME="${package_name}-all"
@@ -25,18 +26,16 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.
 EOF
 
-touch debian/control
+pushd "$script_home" >> "$LOG"
+DEBVERSION="${PKG_VERSION}~${LSB_CODE}-`git rev-parse --short HEAD`"
+popd >> "$LOG"
 
-for dist in ${build_for}; do
-	pushd "$script_home" >> "$LOG"
-	DEBVERSION="${PKG_VERSION}~${dist}-`git rev-parse --short HEAD`"
-	popd >> "$LOG"
+# Create the changelog
+dch --distribution "${LSB_CODE}" --force-distribution --create --newversion "${DEBVERSION}" --package "${DEBNAME}" "Automated build for  ${LSB_ID} ${LSB_CODE} ${LSB_REL}. Built on `date +%Y-%m-%d` at `date +%H:%M:%S`." >> "$LOG" 2>&1 &
+pid=$!;progress $pid
 
-	# Create the changelog
-	dch --distribution "${dist}" --force-distribution --create --newversion "${DEBVERSION}" --package "${DEBNAME}" "Automated build for ${dist}. Built on `date +%Y-%m-%d` at `date +%H:%M:%S`." >> "$LOG" 2>&1
-
-	# Create control file
-	cat >> debian/control << EOF
+# Create control file
+cat > debian/control << EOF
 Source: boost-all
 Maintainer: Team DIANA <info@teamdiana.org>
 Section: misc
@@ -59,9 +58,6 @@ Architecture: any
 Depends: \${misc:Depends}
 Description: Boost Build v2 executable
 EOF
-
-done &
-pid=$!;progress $pid
 
 # Create rules file
 cat > debian/rules << EOF
