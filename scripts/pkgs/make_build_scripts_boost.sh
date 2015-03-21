@@ -4,7 +4,7 @@
 source "$SCRIPTS/common.sh"
 lsb
 
-export PKG_VERSION="1.57.0"
+PKG_VERSION="1.57.0"
 export DEBNAME="${package_name}-all"
 
 ncecho " [x] $package_name: Preparing fake package "
@@ -12,7 +12,8 @@ ncecho " [x] $package_name: Preparing fake package "
 cd "$BASE/$package_name/src"
 
 # Build DEB
-mkdir -p debian >> /dev/null 2>&1
+rm -rfv debian >> "$LOG"  2>&1
+mkdir -p debian >> "$LOG" 2>&1
 
 cat > debian/copying << EOF
 The above copyright notice and this permission notice shall be included in
@@ -27,7 +28,7 @@ IN THE SOFTWARE.
 EOF
 
 pushd "$script_home" >> "$LOG"
-DEBVERSION="${PKG_VERSION}~${LSB_CODE}-`git rev-parse --short HEAD`"
+export DEBVERSION="${PKG_VERSION}~${LSB_CODE}-`git rev-parse --short HEAD`"
 popd >> "$LOG"
 
 # Create the changelog

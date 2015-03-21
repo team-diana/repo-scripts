@@ -8,10 +8,6 @@ ncecho " [x] $package_name: Building the packages "
 dpkg-buildpackage -b -us -uc -j4 >> "$LOG" 2>&1 &
 pid=$!;progress $pid
 
-pushd "$script_home" >> "$LOG"
-DEBVERSION="${PKG_VERSION}~${LSB_CODE}-`git rev-parse --short HEAD`"
-popd >> "$LOG"
-
 CHANGES="$BASE/$package_name/${DEBNAME}_${DEBVERSION}_${LSB_ARCH}.changes"
 
 if [ -e "$CHANGES" ]; then
@@ -27,4 +23,4 @@ fi
 
 # These *MUST BE* exported in a package's make_build_scripts_${package_name}.sh
 unset DEBNAME
-unset PKG_VERSION
+unset DEBVERSION
