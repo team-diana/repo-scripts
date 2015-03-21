@@ -8,7 +8,7 @@ lsb
 PKG_VERSION="1.57.0"
 pushd "$script_home" >> "$LOG"
 export DEBNAME="${package_name}-all"
-export DEBVERSION="${PKG_VERSION}~${LSB_CODE}-`git rev-parse --short HEAD`"
+export DEBVERSION="${PKG_VERSION}~`git rev-parse --short HEAD`"
 popd >> "$LOG"
 
 ncecho " [x] $package_name: Preparing fake package "
@@ -32,7 +32,7 @@ IN THE SOFTWARE.
 EOF
 
 # Create the changelog
-dch --distribution "${LSB_CODE}" --force-distribution --create --newversion "${DEBVERSION}" --package "${DEBNAME}" "Automated build for  ${LSB_ID} ${LSB_CODE} ${LSB_REL}. Built on `date +%Y-%m-%d` at `date +%H:%M:%S`." >> "$LOG" 2>&1 &
+dch --distribution "${LSB_CODE}" --force-distribution --create --newversion "${DEBVERSION}" --package "${DEBNAME}" "Automated build for Ubuntu. Built on `date +%Y-%m-%d` at `date +%H:%M:%S`." >> "$LOG" 2>&1 &
 pid=$!;progress $pid
 
 # Create control file
@@ -48,11 +48,13 @@ Package: boost-all
 Architecture: amd64
 Depends: \${shlibs:Depends}, \${misc:Depends}, boost-all (= $DEBVERSION)
 Description: Boost library, version $DEBVERSION (shared libraries)
+Replaces: boost-all (<< $DEBVERSION)
 
 Package: boost-all-dev
 Architecture: any
 Depends: boost-all (= $DEBVERSION)
 Description: Boost library, version $DEBVERSION (development files)
+Replaces: boost-all-dev (<< $DEBVERSION)
 
 Package: boost-build
 Architecture: any

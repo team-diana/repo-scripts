@@ -39,9 +39,14 @@ pid=$!;progress $pid
 popd >> "$LOG"
 
 cat "$BASE/deb/dists/all/main/binary-amd64/Packages" | gzip -c9 > "$BASE/deb/dists/all/main/binary-amd64/Packages.gz"
-rm "$BASE/deb/override" 2>/dev/null
+rm -v "$BASE/deb/override" >> "$LOG" 2>&1
 
 # Create the 'apt' Release file
 ncecho " [x] Creating $BASE/deb/dists/all/Release file "
 apt-ftparchive -c="$BASE/apt.conf" release "$BASE/deb/"	> "$BASE/deb/dists/all/Release" &
+pid=$!;progress $pid
+
+# Create the 'apt' Contents file
+ncecho " [x] Creating $BASE/deb/dists/all/main/binary-amd64/Contents file "
+apt-ftparchive -c="$BASE/apt.conf" contents "$BASE/deb/" > "$BASE/deb/dists/all/main/binary-amd64/Contents" &
 pid=$!;progress $pid
