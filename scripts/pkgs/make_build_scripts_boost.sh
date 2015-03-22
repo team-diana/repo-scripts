@@ -57,6 +57,7 @@ Package: boost-all
 Architecture: amd64
 Depends: \${shlibs:Depends}, \${misc:Depends}, boost-all (= $DEBVERSION)
 Description: Boost library, version $DEBVERSION (shared libraries)
+Suggests: boost-all-dev (= $DEBVERSION)
 
 Package: boost-all-dev
 Architecture: any
