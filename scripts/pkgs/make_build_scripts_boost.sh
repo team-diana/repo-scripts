@@ -75,7 +75,7 @@ cat > debian/rules << EOF
 %:
 	dh \$@
 override_dh_auto_configure:
-	./bootstrap.sh
+	./bootstrap.sh --prefix="/opt/boost"
 override_dh_auto_build:
 	./b2 link=static,shared -j 4 --prefix="`pwd`/debian/boost-all/opt/boost/"
 override_dh_auto_test:
@@ -83,7 +83,12 @@ override_dh_auto_install:
 	mkdir -p debian/boost-all/opt/boost debian/boost-all-dev/opt/boost debian/boost-build/opt/boost/bin
 	./b2 link=static,shared -j 4 --prefix="`pwd`/debian/boost-all/opt/boost/" install
 	mv debian/boost-all/opt/boost/include debian/boost-all-dev/opt/boost/
+	mv debian/boost-all/usr/share debian/boost-all/opt/boost/
+	mv debian/boost-all-dev/usr/share debian/boost-all-dev/opt/boost/
+	mv debian/boost-build/usr/share debian/boost-build/opt/boost/
 	cp b2 debian/boost-build/opt/boost/bin
+override_dh_shlibdeps:
+	dh_shlibdeps -l"`pwd`/stage/lib"
 EOF
 
 # Create some misc files
